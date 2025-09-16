@@ -1,0 +1,50 @@
+{
+    "name": "wp-easy/easy-google-reviews",
+    "description": "Display Google Reviews and statistics using Google Business Profile API",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Your Name",
+            "email": "your.email@example.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "wp-coding-standards/wpcs": "^2.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "WP_Easy\\EasyGoogleReviews\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WP_Easy\\EasyGoogleReviews\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "cs": "phpcs",
+        "cbf": "phpcbf"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "extra": {
+        "wordpress-plugin": {
+            "name": "Easy Google Reviews",
+            "description": "Display Google Reviews and statistics using Google Business Profile API",
+            "version": "1.0.0",
+            "tested": "6.3",
+            "requires": "5.0",
+            "requires-php": "7.4"
+        }
+    }
+}

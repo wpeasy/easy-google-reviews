@@ -1,0 +1,273 @@
+/* Easy Google Reviews - Admin Styles */
+
+/* Settings page styles */
+.egr-admin-actions {
+    margin-top: var(--wpe-spacing--xl);
+    padding: var(--wpe-padding--m);
+    background: var(--wpe-bg--secondary);
+    border: var(--wpe-border-width--thin) solid var(--wpe-border--secondary);
+    border-radius: var(--wpe-border-radius--m);
+}
+
+.egr-admin-actions h3 {
+    margin-top: 0;
+    margin-bottom: var(--wpe-margin--m);
+    color: var(--wpe-text--secondary);
+}
+
+.egr-admin-actions p {
+    margin-bottom: var(--wpe-spacing--xs);
+}
+
+.egr-admin-actions button {
+    margin-right: var(--wpe-spacing--xs);
+}
+
+/* Auth status indicators */
+.egr-auth-status {
+    padding: var(--wpe-spacing--s) var(--wpe-spacing--m);
+    border-radius: var(--wpe-border-radius--m);
+    font-weight: var(--wpe-font-weight--medium);
+}
+
+.egr-auth-connected {
+    background: var(--wpe-success--lightest);
+    border: var(--wpe-border-width--thin) solid var(--wpe-success--border);
+    color: var(--wpe-success--text);
+}
+
+.egr-auth-disconnected {
+    background: var(--wpe-error--lightest);
+    border: var(--wpe-border-width--thin) solid var(--wpe-error--border);
+    color: var(--wpe-error--text);
+}
+
+/* Sync status page */
+.egr-sync-status {
+    max-width: 800px;
+}
+
+.egr-sync-status .form-table {
+    background: var(--wpe-bg--primary);
+    border: var(--wpe-border-width--thin) solid var(--wpe-border--tertiary);
+    border-radius: var(--wpe-border-radius--m);
+}
+
+.egr-sync-status .form-table th {
+    background: var(--wpe-bg--secondary);
+    font-weight: var(--wpe-font-weight--semibold);
+    width: 200px;
+}
+
+.egr-sync-status .form-table td {
+    padding: var(--wpe-padding--m);
+}
+
+/* Status indicators */
+.egr-status {
+    display: inline-block;
+    padding: calc(var(--wpe-spacing--unit) * 1) var(--wpe-spacing--s);
+    border-radius: var(--wpe-border-radius--full);
+    font-size: var(--wpe-font-size--s);
+    font-weight: var(--wpe-font-weight--medium);
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.egr-status-idle {
+    background: var(--wpe-gray--200);
+    color: var(--wpe-gray--700);
+}
+
+.egr-status-progress {
+    background: var(--wpe-error--light);
+    color: var(--wpe-error);
+    animation: egr-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.egr-status-success {
+    background: var(--wpe-success--light);
+    color: var(--wpe-success--text);
+}
+
+.egr-status-error {
+    background: var(--wpe-error--light);
+    color: var(--wpe-error);
+}
+
+@keyframes egr-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Loading states */
+.egr-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.egr-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--egr-spacing-5);
+    height: var(--egr-spacing-5);
+    margin: calc(var(--egr-spacing-5) / -2) 0 0 calc(var(--egr-spacing-5) / -2);
+    border: var(--egr-border-width-medium) solid var(--egr-gray-200);
+    border-top: var(--egr-border-width-medium) solid var(--egr-primary);
+    border-radius: var(--egr-border-radius-full);
+    animation: egr-spin 1s linear infinite;
+}
+
+@keyframes egr-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Notices */
+.egr-notice {
+    display: flex;
+    align-items: center;
+    padding: var(--egr-spacing-3) var(--egr-spacing-4);
+    margin: var(--egr-margin-md) 0;
+    border-radius: var(--egr-border-radius-md);
+    font-size: var(--egr-font-size-sm);
+}
+
+.egr-notice-success {
+    background: var(--egr-success-lightest);
+    border: var(--egr-border-width-thin) solid var(--egr-success-border);
+    color: var(--egr-success-text);
+}
+
+.egr-notice-error {
+    background: var(--egr-error-lightest);
+    border: var(--egr-border-width-thin) solid var(--egr-error-border);
+    color: var(--egr-error-text);
+}
+
+.egr-notice-warning {
+    background: var(--egr-warning-lightest);
+    border: var(--egr-border-width-thin) solid var(--egr-warning-border);
+    color: var(--egr-warning-text);
+}
+
+.egr-notice-info {
+    background: var(--egr-info-lightest);
+    border: var(--egr-border-width-thin) solid var(--egr-info-border);
+    color: var(--egr-info-text);
+}
+
+/* Field descriptions */
+.egr-field-description {
+    margin-top: var(--egr-spacing-2);
+    font-size: var(--egr-font-size-sm);
+    color: var(--egr-text-muted);
+    line-height: var(--egr-line-height-normal);
+}
+
+/* Stats cards */
+.egr-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--egr-grid-gap-sm);
+    margin: var(--egr-margin-md) 0;
+}
+
+.egr-stat-card {
+    padding: var(--egr-card-padding);
+    background: var(--egr-card-bg);
+    border: var(--egr-card-border-width) solid var(--egr-card-border-color);
+    border-radius: var(--egr-card-border-radius);
+    text-align: center;
+    box-shadow: var(--egr-card-shadow);
+}
+
+.egr-stat-value {
+    display: block;
+    font-size: var(--egr-font-size-4xl);
+    font-weight: var(--egr-font-weight-bold);
+    color: var(--egr-primary);
+    margin-bottom: var(--egr-spacing-2);
+}
+
+.egr-stat-label {
+    font-size: var(--egr-font-size-sm);
+    color: var(--egr-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+/* Button states */
+.button.egr-button-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.button.egr-button-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--egr-spacing-4);
+    height: var(--egr-spacing-4);
+    margin: calc(var(--egr-spacing-4) / -2) 0 0 calc(var(--egr-spacing-4) / -2);
+    border: var(--egr-border-width-medium) solid var(--egr-text-white);
+    border-top: var(--egr-border-width-medium) solid transparent;
+    border-radius: var(--egr-border-radius-full);
+    animation: egr-spin 1s linear infinite;
+}
+
+/* Progress indicators */
+.egr-progress {
+    width: 100%;
+    height: var(--egr-spacing-2);
+    background: var(--egr-bg-tertiary);
+    border-radius: var(--egr-border-radius-md);
+    overflow: hidden;
+}
+
+.egr-progress-bar {
+    height: 100%;
+    background: var(--egr-primary);
+    transition: width var(--egr-transition-slow) var(--egr-transition-ease);
+}
+
+.egr-progress-indeterminate .egr-progress-bar {
+    width: 30%;
+    animation: egr-progress-indeterminate 2s ease-in-out infinite;
+}
+
+@keyframes egr-progress-indeterminate {
+    0% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(200%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Responsive */
+@media (max-width: 782px) {
+    .egr-admin-actions button {
+        display: block;
+        width: 100%;
+        margin: 0 0 var(--egr-spacing-2) 0;
+    }
+
+    .egr-stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Dark mode support is handled by framework.css variables */
