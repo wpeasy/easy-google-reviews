@@ -26,6 +26,10 @@ It will need a Settings page where we can:
 ## Architecture
 
 **Namespace**: `WP_Easy\EasyGoogleReviews`
+**ConstantPrefix**: EGR_
+**textDomain**: egr
+**JavascriptVariablPrefix**: --wpe-
+
 
 ### Core Classes
 
@@ -45,6 +49,10 @@ It will need a Settings page where we can:
 - `render()`, `handle_*()`: Methods that output HTML or handle requests
 - Private helper methods prefixed with underscore when appropriate
 - Extensive parameter validation and type checking
+
+### JavaScript
+- Never use jQuery, always use ES6 and native Browser APIs wherever possible
+- Use AlpineJS for and reactive JS and state management. Serve Alpine locally, not from a CDN.
 
 ### Database
 

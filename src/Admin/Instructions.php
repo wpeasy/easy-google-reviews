@@ -188,11 +188,18 @@ final class Instructions
             <div class="egr-step">
                 <h3><?php _e('Step 6: Find Your Business Location ID', 'egr'); ?></h3>
                 <ol>
-                    <li><?php _e('After connecting, use the "Test Connection" button to see your business locations', 'egr'); ?></li>
-                    <li><?php _e('Find your business in the response and copy its location ID', 'egr'); ?></li>
-                    <li><?php _e('Paste the Business Location ID in the settings', 'egr'); ?></li>
+                    <li><?php _e('After connecting, scroll down to the "Admin Actions" section in the settings', 'egr'); ?></li>
+                    <li><?php _e('Click the "Test Connection" button', 'egr'); ?></li>
+                    <li><?php _e('The response will appear in a text box directly below the button', 'egr'); ?></li>
+                    <li><?php _e('Look for your business name in the JSON response', 'egr'); ?></li>
+                    <li><?php _e('Copy the complete location ID (it will look like "accounts/123456789/locations/987654321")', 'egr'); ?></li>
+                    <li><?php _e('Scroll back up and paste the Business Location ID in the settings field', 'egr'); ?></li>
                     <li><?php _e('Save the settings', 'egr'); ?></li>
                 </ol>
+                <div class="egr-note">
+                    <strong><?php _e('Tip:', 'egr'); ?></strong>
+                    <?php _e('The response appears as formatted JSON text in a box below the Test Connection button. You don\'t need to open browser developer tools - it\'s visible directly on the page.', 'egr'); ?>
+                </div>
             </div>
 
             <div class="egr-step">
@@ -254,8 +261,15 @@ final class Instructions
 
                 <div class="egr-setting-item">
                     <h4><?php _e('Business Location ID', 'egr'); ?></h4>
-                    <p><?php _e('Your Google Business Profile location ID. Use the "Test Connection" button to find this. It looks like:', 'egr'); ?></p>
-                    <code>accounts/123456789/locations/987654321</code>
+                    <p><?php _e('Your Google Business Profile location ID. Use the "Test Connection" button to find this. Enter the complete string exactly as shown:', 'egr'); ?></p>
+                    <div class="egr-code-block">
+                        <code>accounts/123456789/locations/987654321</code>
+                        <button type="button" class="egr-copy-btn" data-copy="accounts/123456789/locations/987654321"><?php _e('Copy Example', 'egr'); ?></button>
+                    </div>
+                    <div class="egr-note">
+                        <strong><?php _e('Important:', 'egr'); ?></strong>
+                        <?php _e('You must enter the entire Location ID string including "accounts/" and "locations/" parts. Do not enter just the numbers.', 'egr'); ?>
+                    </div>
                 </div>
             </div>
 
@@ -522,13 +536,252 @@ final class Instructions
 
     private static function render_rest_endpoints_tab(): void
     {
+        $site_url = get_site_url();
         ?>
         <div class="egr-instructions__content">
             <h2><?php _e('REST Endpoints', 'egr'); ?></h2>
-            <p><?php _e('REST endpoint documentation will be added here in a future update.', 'egr'); ?></p>
+            <p><?php _e('The plugin provides REST API endpoints for frontend integration. All endpoints require same-origin requests for security.', 'egr'); ?></p>
+
             <div class="egr-note">
-                <strong><?php _e('Coming Soon:', 'egr'); ?></strong>
-                <?php _e('Detailed documentation for REST API endpoints will be provided here for developers who want to integrate with the plugin programmatically.', 'egr'); ?>
+                <strong><?php _e('Security:', 'egr'); ?></strong>
+                <?php _e('These endpoints only accept requests from the same domain to prevent unauthorized access. Perfect for frontend JavaScript integration.', 'egr'); ?>
+            </div>
+
+            <div class="egr-setting-group">
+                <h3><?php _e('Base URL', 'egr'); ?></h3>
+                <div class="egr-setting-item">
+                    <div class="egr-code-block">
+                        <code><?php echo esc_html($site_url); ?>/wp-json/egr/v1/</code>
+                        <button type="button" class="egr-copy-btn" data-copy="<?php echo esc_attr($site_url); ?>/wp-json/egr/v1/"><?php _e('Copy', 'egr'); ?></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5-Star Count Endpoint -->
+            <div class="egr-shortcode-section">
+                <h3><?php _e('GET /5star-count', 'egr'); ?></h3>
+
+                <div class="egr-shortcode-basic">
+                    <h4><?php _e('Description', 'egr'); ?></h4>
+                    <p><?php _e('Returns the total count of 5-star reviews.', 'egr'); ?></p>
+                </div>
+
+                <div class="egr-shortcode-examples">
+                    <h4><?php _e('Request URL', 'egr'); ?></h4>
+                    <div class="egr-example">
+                        <div class="egr-code-block">
+                            <code><?php echo esc_html($site_url); ?>/wp-json/egr/v1/5star-count</code>
+                            <button type="button" class="egr-copy-btn" data-copy="<?php echo esc_attr($site_url); ?>/wp-json/egr/v1/5star-count"><?php _e('Copy', 'egr'); ?></button>
+                        </div>
+                    </div>
+
+                    <h4><?php _e('Response Example', 'egr'); ?></h4>
+                    <div class="egr-example">
+                        <div class="egr-code-block">
+                            <code>{
+  "success": true,
+  "data": {
+    "five_star_count": 42
+  }
+}</code>
+                            <button type="button" class="egr-copy-btn" data-copy='{"success": true, "data": {"five_star_count": 42}}'><?php _e('Copy', 'egr'); ?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews Endpoint -->
+            <div class="egr-shortcode-section">
+                <h3><?php _e('GET /reviews', 'egr'); ?></h3>
+
+                <div class="egr-shortcode-basic">
+                    <h4><?php _e('Description', 'egr'); ?></h4>
+                    <p><?php _e('Returns paginated reviews with complete pagination metadata.', 'egr'); ?></p>
+                </div>
+
+                <div class="egr-shortcode-attributes">
+                    <h4><?php _e('Parameters', 'egr'); ?></h4>
+
+                    <div class="egr-attribute">
+                        <h5>page_number</h5>
+                        <p><strong><?php _e('Type:', 'egr'); ?></strong> integer</p>
+                        <p><strong><?php _e('Default:', 'egr'); ?></strong> 1</p>
+                        <p><strong><?php _e('Description:', 'egr'); ?></strong> <?php _e('The page number to retrieve (1-based).', 'egr'); ?></p>
+                    </div>
+
+                    <div class="egr-attribute">
+                        <h5>row_count</h5>
+                        <p><strong><?php _e('Type:', 'egr'); ?></strong> integer</p>
+                        <p><strong><?php _e('Default:', 'egr'); ?></strong> 10</p>
+                        <p><strong><?php _e('Max:', 'egr'); ?></strong> 100</p>
+                        <p><strong><?php _e('Description:', 'egr'); ?></strong> <?php _e('Number of reviews per page.', 'egr'); ?></p>
+                    </div>
+                </div>
+
+                <div class="egr-shortcode-examples">
+                    <h4><?php _e('Request Examples', 'egr'); ?></h4>
+
+                    <div class="egr-example">
+                        <h5><?php _e('Basic request', 'egr'); ?></h5>
+                        <div class="egr-code-block">
+                            <code><?php echo esc_html($site_url); ?>/wp-json/egr/v1/reviews</code>
+                            <button type="button" class="egr-copy-btn" data-copy="<?php echo esc_attr($site_url); ?>/wp-json/egr/v1/reviews"><?php _e('Copy', 'egr'); ?></button>
+                        </div>
+                    </div>
+
+                    <div class="egr-example">
+                        <h5><?php _e('With pagination', 'egr'); ?></h5>
+                        <div class="egr-code-block">
+                            <code><?php echo esc_html($site_url); ?>/wp-json/egr/v1/reviews?page_number=2&row_count=5</code>
+                            <button type="button" class="egr-copy-btn" data-copy="<?php echo esc_attr($site_url); ?>/wp-json/egr/v1/reviews?page_number=2&row_count=5"><?php _e('Copy', 'egr'); ?></button>
+                        </div>
+                    </div>
+
+                    <h4><?php _e('Response Example', 'egr'); ?></h4>
+                    <div class="egr-example">
+                        <div class="egr-code-block">
+                            <code>{
+  "success": true,
+  "data": {
+    "reviews": [
+      {
+        "name": "John Doe",
+        "rating": 5,
+        "text": "Great service!",
+        "date": {
+          "timestamp": 1234567890,
+          "formatted": "January 1, 2024",
+          "relative": "2 days ago"
+        },
+        "reply": {
+          "text": "Thank you!",
+          "date": {
+            "timestamp": 1234567890,
+            "formatted": "January 2, 2024",
+            "relative": "1 day ago"
+          }
+        }
+      }
+    ],
+    "pagination": {
+      "current_page": 1,
+      "per_page": 10,
+      "total_items": 50,
+      "total_pages": 5,
+      "has_next_page": true,
+      "has_prev_page": false
+    }
+  }
+}</code>
+                            <button type="button" class="egr-copy-btn" data-copy='{"success": true, "data": {"reviews": [{"name": "John Doe", "rating": 5, "text": "Great service!", "date": {"timestamp": 1234567890, "formatted": "January 1, 2024", "relative": "2 days ago"}, "reply": {"text": "Thank you!", "date": {"timestamp": 1234567890, "formatted": "January 2, 2024", "relative": "1 day ago"}}}], "pagination": {"current_page": 1, "per_page": 10, "total_items": 50, "total_pages": 5, "has_next_page": true, "has_prev_page": false}}}'><?php _e('Copy', 'egr'); ?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Endpoint -->
+            <div class="egr-shortcode-section">
+                <h3><?php _e('GET /stats', 'egr'); ?></h3>
+
+                <div class="egr-shortcode-basic">
+                    <h4><?php _e('Description', 'egr'); ?></h4>
+                    <p><?php _e('Returns connection status, sync information, and review totals.', 'egr'); ?></p>
+                </div>
+
+                <div class="egr-shortcode-examples">
+                    <h4><?php _e('Request URL', 'egr'); ?></h4>
+                    <div class="egr-example">
+                        <div class="egr-code-block">
+                            <code><?php echo esc_html($site_url); ?>/wp-json/egr/v1/stats</code>
+                            <button type="button" class="egr-copy-btn" data-copy="<?php echo esc_attr($site_url); ?>/wp-json/egr/v1/stats"><?php _e('Copy', 'egr'); ?></button>
+                        </div>
+                    </div>
+
+                    <h4><?php _e('Response Example', 'egr'); ?></h4>
+                    <div class="egr-example">
+                        <div class="egr-code-block">
+                            <code>{
+  "success": true,
+  "data": {
+    "connection_status": "connected",
+    "last_sync": {
+      "timestamp": 1234567890,
+      "formatted": "January 1, 2024 10:30 AM",
+      "relative": "2 hours ago"
+    },
+    "totals": {
+      "total_reviews": 150,
+      "five_star_count": 42
+    },
+    "has_error": false,
+    "error_message": null
+  }
+}</code>
+                            <button type="button" class="egr-copy-btn" data-copy='{"success": true, "data": {"connection_status": "connected", "last_sync": {"timestamp": 1234567890, "formatted": "January 1, 2024 10:30 AM", "relative": "2 hours ago"}, "totals": {"total_reviews": 150, "five_star_count": 42}, "has_error": false, "error_message": null}}'><?php _e('Copy', 'egr'); ?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JavaScript Example -->
+            <div class="egr-shortcode-section">
+                <h3><?php _e('JavaScript Integration Example', 'egr'); ?></h3>
+
+                <div class="egr-shortcode-basic">
+                    <h4><?php _e('Fetch API Example', 'egr'); ?></h4>
+                    <p><?php _e('Here\'s how to use these endpoints with JavaScript:', 'egr'); ?></p>
+                </div>
+
+                <div class="egr-shortcode-examples">
+                    <div class="egr-example">
+                        <h5><?php _e('Fetch 5-star count', 'egr'); ?></h5>
+                        <div class="egr-code-block">
+                            <code>fetch('/wp-json/egr/v1/5star-count')
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      console.log('5-star count:', data.data.five_star_count);
+    }
+  });</code>
+                            <button type="button" class="egr-copy-btn" data-copy="fetch('/wp-json/egr/v1/5star-count').then(response => response.json()).then(data => { if (data.success) { console.log('5-star count:', data.data.five_star_count); } });"><?php _e('Copy', 'egr'); ?></button>
+                        </div>
+                    </div>
+
+                    <div class="egr-example">
+                        <h5><?php _e('Fetch reviews with pagination', 'egr'); ?></h5>
+                        <div class="egr-code-block">
+                            <code>fetch('/wp-json/egr/v1/reviews?page_number=1&row_count=5')
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      data.data.reviews.forEach(review => {
+        console.log(`${review.name}: ${review.rating} stars`);
+      });
+    }
+  });</code>
+                            <button type="button" class="egr-copy-btn" data-copy="fetch('/wp-json/egr/v1/reviews?page_number=1&row_count=5').then(response => response.json()).then(data => { if (data.success) { data.data.reviews.forEach(review => { console.log(`${review.name}: ${review.rating} stars`); }); } });"><?php _e('Copy', 'egr'); ?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="egr-troubleshooting">
+                <h3><?php _e('Troubleshooting', 'egr'); ?></h3>
+
+                <div class="egr-trouble-item">
+                    <h4><?php _e('403 Forbidden Error', 'egr'); ?></h4>
+                    <p><?php _e('Make sure you\'re making requests from the same domain. Cross-origin requests are blocked for security.', 'egr'); ?></p>
+                </div>
+
+                <div class="egr-trouble-item">
+                    <h4><?php _e('Empty Reviews Response', 'egr'); ?></h4>
+                    <p><?php _e('Ensure you have configured Google API credentials and successfully synced reviews in the Settings page.', 'egr'); ?></p>
+                </div>
+
+                <div class="egr-trouble-item">
+                    <h4><?php _e('Connection Status "not_connected"', 'egr'); ?></h4>
+                    <p><?php _e('Check that your Google API token is valid and hasn\'t expired. Try refreshing the connection in Settings.', 'egr'); ?></p>
+                </div>
             </div>
         </div>
         <?php

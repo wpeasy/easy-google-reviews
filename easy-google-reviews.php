@@ -4,7 +4,7 @@ defined('ABSPATH') || exit;
 /**
  * Plugin Name: Easy Google Reviews
  * Description: Display Google Reviews and statistics using Google Business Profile API
- * Version: 1.0.0-beta
+ * Version: 1.0.1-beta
  * Author: Alan Blair <alan@wpeasy.au>
  * Text Domain: egr
  * Domain Path: /languages
@@ -25,7 +25,7 @@ if (!defined('ABSPATH')) {
 define('EGR_PLUGIN_FILE', __FILE__);
 define('EGR_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('EGR_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('EGR_PLUGIN_VERSION', '1.0.0-beta');
+define('EGR_PLUGIN_VERSION', '1.0.1-beta');
 define('EGR_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
 // Check if autoloader exists
